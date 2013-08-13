@@ -64,6 +64,45 @@ module.exports = function(grunt) {
       }
     },
 
+    watch: {
+      options: {
+        livereload: true
+      },
+      scripts: {
+        files: 'src/scripts/**/*.js',
+        tasks: ['concat:scripts']
+      },
+      styles: {
+        files: 'src/styles/**/*.less',
+        tasks: ['concat:styles', 'less']
+      },
+      examples: {
+        files: 'examples/**/*.html',
+        tasks: [] // Just want to trigger a live reload
+      }
+    },
+
+    connect: {
+      examples: {
+        options: {
+          middleware: function(connect) {
+            return [
+              require('connect-livereload')(),
+              connect['static']('src/scripts'),
+              connect['static']('examples'),
+              connect['static']('.tmp')
+            ];
+          }
+        }
+      }
+    },
+
+    open: {
+      examples: {
+        path: 'http://localhost:8000/basic.html'
+      }
+    },
+
     karma: {
       spec: {
         options: {
@@ -89,6 +128,15 @@ module.exports = function(grunt) {
     'cssmin',
     'uglify',
     'copy:dist'
+  ]);
+
+  grunt.registerTask('server', [
+    'clean',
+    'concat',
+    'less',
+    'connect:examples',
+    'open:examples',
+    'watch'
   ]);
 
   grunt.registerTask('default', [
