@@ -6,8 +6,24 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js" type="text/javascript" charset="utf-8"></script>
     <script src="module.js" type="text/javascript" charset="utf-8"></script>
     <script src="directives/subtleSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="directives/subtleSelectOption.js" type="text/javascript" charset="utf-8"></script>
+    <script src="directives/subtleSelectOptionList.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      angular.module('demo', ['sbtl']);
+      angular.module('demo').controller('DemoCtrl', function($scope) {
+        $scope.myOpts = [{
+          text: 'Blargus',
+          value: 'blargus'
+        }, {
+          text: 'Boo',
+          value: 'boo'
+        }];
+      });
+    </script>
   </head>
-  <body>
-    hello world!
+  <body ng-app="demo">
+    <div ng-controller="DemoCtrl">
+      <sbtl-select sbtl-options="myOpts" sbtl-list-is-visible="false">boo</sbtl-select>
+    </div>
   </body>
 </html>

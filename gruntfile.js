@@ -28,7 +28,10 @@ module.exports = function(grunt) {
       styles: {
         src: [
           'src/styles/mixins.less',
-          'src/styles/variables.less'
+          'src/styles/variables.less',
+          'src/styles/sbtl-select.less',
+          'src/styles/sbtl-option-list.less',
+          'src/styles/sbtl-option.less'
         ],
         dest: '.tmp/subtle-select.less'
       }

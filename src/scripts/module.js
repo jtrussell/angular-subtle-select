@@ -1,1 +1,1 @@
-angular.module('subtle', []);
+angular.module('sbtl', []);
