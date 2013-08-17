@@ -18,12 +18,20 @@
           text: 'Boo',
           value: 'boo'
         }];
+
+        $scope.myValue = 'blargus';
+
+        $scope.logValue = function() {
+          console.log($scope.myValue);
+        };
       });
     </script>
   </head>
   <body ng-app="demo">
     <div ng-controller="DemoCtrl">
-      <sbtl-select sbtl-options="myOpts" sbtl-list-is-visible="false">boo</sbtl-select>
+      <sbtl-select ng-model="myValue" sbtl-options="myOpts" sbtl-list-is-visible="false">boo</sbtl-select>
+
+       <button ng-click="logValue()">clicky</button>
     </div>
   </body>
 </html>

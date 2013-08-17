@@ -1,17 +1,18 @@
 /*global angular, jQuery */
 
-angular.module('sbtl').directive('sbtlSelect', [
-    '$rootScope',
-    function($rootScope) {
+angular.module('sbtl').directive('sbtlSelect', [function() {
   'use strict';
   return {
     restrict: 'AE',
     replace: true,
-    transclude: true,
-    scope: {sbtlOptions: '=', sbtlListIsVisible: '='},
+    scope: {
+      ngModel: '=',
+      sbtlOptions: '=',
+      sbtlListIsVisible: '@'
+    },
     template: [
       '<span class="sbtl-select">',
-        '<span ng-transclude></span>',
+        '{{getValueText(ngModel)}}',
         '<sbtl-select-option-list ',
             'sbtl-list-is-visible="sbtlListIsVisible" ',
             'sbtl-options="sbtlOptions">',
@@ -19,10 +20,21 @@ angular.module('sbtl').directive('sbtlSelect', [
       '</span>'
     ].join(''),
     link: function(scope, element, attrs) {
+      scope.getValueText = function(value) {
+        var text = '';
+        angular.forEach(scope.sbtlOptions, function(opt) {
+          if(opt.value === value) {
+            text = opt.text;
+            return false;
+          }
+        });
+        return text;
+      };
+
       (function($) {
         $(element[0]).mouseover(function() {
           scope.sbtlListIsVisible = true;
-          $rootScope.$apply();
+          scope.$apply();
         });
       }(jQuery));
     }

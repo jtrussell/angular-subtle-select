@@ -1,4 +1,4 @@
-/*global angular */
+/*global angular, jQuery */
 
 angular.module('sbtl').directive('sbtlSelectOptionList', [function() {
   'use strict';
@@ -13,6 +13,12 @@ angular.module('sbtl').directive('sbtlSelectOptionList', [function() {
       '</span>'
     ].join(''),
     link: function(scope, element, attrs) {
+      (function($) {
+        $(element[0]).mouseout(function() {
+          scope.sbtlListIsVisible = false;
+          scope.$apply();
+        });
+      }(jQuery));
     }
   };
 }]);
