@@ -11,12 +11,13 @@ angular.module('sbtl').directive('sbtlSelect', [function() {
       sbtlListIsVisible: '@'
     },
     template: [
-      '<span class="sbtl-select">',
+      '<span class="sbtl-select" ng-click="showSbtlList()" ng-mouseenter="showSbtlList()">',
         '{{getValueText(ngModel)}}',
-        '<sbtl-select-option-list ',
+        '<span sbtl-select-option-list ',
             'sbtl-list-is-visible="sbtlListIsVisible" ',
-            'sbtl-options="sbtlOptions">',
-        '</sbtl-select-option-list>',
+            'sbtl-options="sbtlOptions" ',
+            'sbtl-callback="sbtlSelectCallback">',
+        '</span>',
       '</span>'
     ].join(''),
     link: function(scope, element, attrs) {
@@ -31,12 +32,39 @@ angular.module('sbtl').directive('sbtlSelect', [function() {
         return text;
       };
 
-      (function($) {
-        $(element[0]).mouseover(function() {
-          scope.sbtlListIsVisible = true;
-          scope.$apply();
-        });
-      }(jQuery));
+      scope.showSbtlList = function() {
+        scope.sbtlListIsVisible = true;
+      };
+
+      scope.sbtlSelectCallback = function(opt) {
+        selectOpt(opt);
+        makeOptFirst(opt);
+        hideSbtlList();
+      };
+
+      var selectOpt = function(opt) {
+        scope.ngModel = opt.value;
+      };
+
+      var hideSbtlList = function() {
+        scope.sbtlListIsVisible = false;
+      };
+
+      var makeOptFirst = function(opt) {
+        var ix, optIx;
+        for(ix = scope.sbtlOptions.length; ix--;) {
+          if(opt.value === scope.sbtlOptions[ix].value) {
+            optIx = ix;
+            ix = 0;
+          }
+        }
+
+        if(!angular.isUndefined(optIx)) {
+          scope.sbtlOptions.splice(optIx,1);
+          scope.sbtlOptions.unshift(opt);
+        }
+        
+      };
     }
   };
 }]);

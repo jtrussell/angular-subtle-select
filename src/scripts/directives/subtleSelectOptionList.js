@@ -5,20 +5,17 @@ angular.module('sbtl').directive('sbtlSelectOptionList', [function() {
   return {
     restrict: 'AE',
     replace: true,
-    scope: {sbtlOptions: '=', sbtlListIsVisible: '='},
+    scope: {sbtlOptions: '=', sbtlListIsVisible: '=', sbtlCallback: '='},
     template: [
-      '<span ng-show="sbtlListIsVisible" class="sbtl-option-list">',
-        '<sbtl-select-option ng-repeat="opt in sbtlOptions" sbtl-option="opt">',
-        '</sbtl-select-option>',
+      '<span ng-show="sbtlListIsVisible" class="sbtl-option-list" ng-mouseleave="hideSbtlList()">',
+        '<span sbtl-select-option ng-repeat="opt in sbtlOptions" sbtl-option="opt" sbtl-callback="sbtlCallback">',
+        '</span>',
       '</span>'
     ].join(''),
     link: function(scope, element, attrs) {
-      (function($) {
-        $(element[0]).mouseout(function() {
-          scope.sbtlListIsVisible = false;
-          scope.$apply();
-        });
-      }(jQuery));
+      scope.hideSbtlList = function() {
+        scope.sbtlListIsVisible = false;
+      };
     }
   };
 }]);
