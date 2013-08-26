@@ -1,6 +1,7 @@
 {
-  "name": "angular-subtle-select",
-  "version": "0.0.0",
+  "name": "angular-subtle-select-dev",
+  "version": "0.1.1",
+  "main": [],
   "ignore": [
     "**/.*",
     "node_modules",
@@ -10,5 +11,7 @@
   ],
   "dependencies": {
     "angular": "git://github.com/angular/bower-angular.git#~1.0.7"
-  }
+  },
+  "devDependencies": [],
+  "private": false
 }
