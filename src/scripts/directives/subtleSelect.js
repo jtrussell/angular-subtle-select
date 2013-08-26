@@ -1,4 +1,4 @@
-/*global angular, jQuery */
+/*global angular */
 
 angular.module('sbtl').directive('sbtlSelect', [function() {
   'use strict';
