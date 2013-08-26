@@ -21,6 +21,8 @@ angular.module('sbtl').directive('sbtlSelect', [function() {
       '</span>'
     ].join(''),
     link: function(scope, element, attrs) {
+      var selectOpt, hideSbtlList, makeOptFirst;
+
       scope.getValueText = function(value) {
         var text = '';
         angular.forEach(scope.sbtlOptions, function(opt) {
@@ -42,15 +44,15 @@ angular.module('sbtl').directive('sbtlSelect', [function() {
         hideSbtlList();
       };
 
-      var selectOpt = function(opt) {
+      selectOpt = function(opt) {
         scope.ngModel = opt.value;
       };
 
-      var hideSbtlList = function() {
+      hideSbtlList = function() {
         scope.sbtlListIsVisible = false;
       };
 
-      var makeOptFirst = function(opt) {
+      makeOptFirst = function(opt) {
         var ix, optIx;
         for(ix = scope.sbtlOptions.length; ix--;) {
           if(opt.value === scope.sbtlOptions[ix].value) {
